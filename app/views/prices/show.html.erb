@@ -1,0 +1,35 @@
+<h1 style="text-align:center;">Crypto Price</h1>
+
+<div style="max-width:600px; margin: 0 auto;">
+
+  <div style="margin-bottom:20px;">
+    <%= link_to "← Back", root_path,
+        style: "text-decoration:none; color:#007bff;" %>
+  </div>
+
+  <div style="border:1px solid #eee; padding:20px; border-radius:10px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
+
+    <p style="margin-bottom:10px;">
+      <strong>Symbol:</strong>
+      <span style="text-transform:capitalize;"><%= @symbol %></span>
+    </p>
+
+    <% if @price.present? %>
+      <p style="margin-bottom:10px;">
+        <strong>Price (USD):</strong>
+        <%= @price %>
+      </p>
+
+      <p style="margin-bottom:0;">
+        <strong>Source:</strong>
+        <span style="color:#666;"><%= @source %></span>
+      </p>
+    <% else %>
+      <p style="color:#999;">
+        Price not available yet. Try again later.
+      </p>
+    <% end %>
+
+  </div>
+
+</div>
