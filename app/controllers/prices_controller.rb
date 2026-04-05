@@ -13,7 +13,10 @@ class PricesController < ApplicationController
     @record = CryptoPrice.find_by(symbol: @symbol)
     @cached_price = Rails.cache.read(cache_key(@symbol))
 
-    live_price = CryptoPriceFetcher.fetch(@symbol)
+    result = CryptoPriceFetcher.fetch(@symbol)
+
+    live_price = result[:price]
+    @error = result[:error]
 
     if live_price.present?
       @record ||= CryptoPrice.new(symbol: @symbol)

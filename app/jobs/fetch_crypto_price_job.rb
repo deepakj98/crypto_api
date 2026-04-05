@@ -9,7 +9,8 @@ class FetchCryptoPriceJob < ApplicationJob
     symbols.each do |symbol|
       record = CryptoPrice.find_or_create_by!(symbol: symbol)
 
-      price = CryptoPriceFetcher.fetch(symbol)
+      result = CryptoPriceFetcher.fetch(symbol)
+      price = result[:price]
 
       if price.present?
         record.update!(

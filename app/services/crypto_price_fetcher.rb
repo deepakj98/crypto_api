@@ -1,4 +1,5 @@
 # app/services/crypto_price_fetcher.rb
+# app/services/crypto_price_fetcher.rb
 class CryptoPriceFetcher
   include HTTParty
   base_uri "https://api.coingecko.com/api/v3"
@@ -15,16 +16,21 @@ class CryptoPriceFetcher
       price = response.parsed_response.dig(symbol.downcase, "usd")
 
       if price.nil?
-        Rails.logger.warn("Invalid coin id: #{symbol}")
+        error = "Invalid coin id: #{symbol}"
+        Rails.logger.warn(error)
+        { price: nil, error: error }
+      else
+        { price: price, error: nil }
       end
-
-      price
     else
-      Rails.logger.error("API error: #{response.code} - #{response.body}")
-      nil
+      error = "API error: #{response.code}"
+      Rails.logger.error("#{error} - #{response.body}")
+      { price: nil, error: error }
     end
+
   rescue StandardError => e
-    Rails.logger.error("Fetch failed: #{e.message}")
-    nil
+    error = "Fetch failed: #{e.message}"
+    Rails.logger.error(error)
+    { price: nil, error: error }
   end
 end
