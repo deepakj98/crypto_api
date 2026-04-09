@@ -11,6 +11,7 @@ Rails.application.configure do
 
   # Show full error reports.
   config.consider_all_requests_local = true
+  config.active_job.queue_adapter = :solid_queue
 
   # Enable server timing.
   config.server_timing = true

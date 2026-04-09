@@ -1,5 +1,4 @@
 # app/services/crypto_price_fetcher.rb
-# app/services/crypto_price_fetcher.rb
 class CryptoPriceFetcher
   include HTTParty
   base_uri "https://api.coingecko.com/api/v3"
